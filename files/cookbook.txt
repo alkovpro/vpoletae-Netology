@@ -1,0 +1,26 @@
+Omlet
+3
+Yaica | 2 | sht.
+Moloko | 100 | ml.
+Pomidor | 2 | sht.
+
+Utka po-pekinski
+4
+Utka | 1 | sht.
+Voda | 2 | l.
+Miod | 3 | st.l.
+Soevyi sous | 60 | ml.
+
+Zapecionnyi kartofel
+3
+Kartofel | 1 | kg.
+Chesnok | 3 | zubch.
+Syr Gauda | 100 | g.
+
+Fahitos
+5
+Goviadina | 500 | g.
+Perets sladkiy | 1 | sht.
+Lavash | 2 | sht.
+Pomidor | 2 | sht.
+Vinny uksus | 1 | st.l.
