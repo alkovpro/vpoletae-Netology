@@ -1,3 +1,6 @@
+# Program description
+# Return in json unique groups' set among all friends in vk
+
 '''Import libs, define constants, variables'''
 import requests
 import json
@@ -15,8 +18,8 @@ class User:
             self.friends_list = list()
             self.groups_set = set()
 
-      def __str__(self):
-            return str(self.friends_set), str(self.groups_set)
+##      def __str__(self):
+##            return str(self.friends_list), str(self.groups_set)
 
       def get_friends(self):
             params = {
@@ -65,12 +68,12 @@ def get_group_description(groups_description, TOKEN, group_id):
                   'v': '5.92'
                   }
       print('...')
-      getById = requests.get('https://api.vk.com/method/groups.getById', params).json()
+      get_by_id = requests.get('https://api.vk.com/method/groups.getById', params).json()
       
-      for group in getById['response']: # to operate with list
+      for group in get_by_id['response']: # to operate with list
             print('...')
-            getMembers = requests.get('https://api.vk.com/method/groups.getMembers', params).json()
-            count_members = getMembers['response']['count']
+            get_members = requests.get('https://api.vk.com/method/groups.getMembers', params).json()
+            count_members = get_members['response']['count']
             group_dict['name'] = group['name']
             group_dict['gid'] = group['id']
             group_dict['members_count'] = count_members
@@ -85,17 +88,21 @@ def create_json(groups_description):
             f.write(data_to_write)
       
 '''Key loop'''
-evgen = User(TOKEN, EVG_ID)
-evgen_friends_list = evgen.get_friends()
-evgen_groups_set = evgen.get_groups()
-unique_groups_list = get_unique_groups(evgen_friends_list, evgen_groups_set, TOKEN)
+def main(TOKEN = TOKEN, EVG_ID = EVG_ID):
+      evgen = User(TOKEN, EVG_ID)
+      evgen_friends_list = evgen.get_friends()
+      evgen_groups_set = evgen.get_groups()
+      unique_groups_list = get_unique_groups(evgen_friends_list, evgen_groups_set, TOKEN)
 
-groups_description = []
-for group_id in unique_groups_list:
-      get_group_description(groups_description, TOKEN, group_id)
+      groups_description = []
+      for group_id in unique_groups_list:
+            get_group_description(groups_description, TOKEN, group_id)
 
-create_json(groups_description)
+      create_json(groups_description)
 
+if __name__ == '__main__':
+      main()
+      
 # testing
 with open('groups.json', 'r', encoding = 'UTF8') as f:
       data = json.load(f)
