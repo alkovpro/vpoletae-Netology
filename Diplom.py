@@ -18,9 +18,6 @@ class User:
             self.friends_list = list()
             self.groups_set = set()
 
-##      def __str__(self):
-##            return str(self.friends_list), str(self.groups_set)
-
       def get_friends(self):
             params = {
                   'access_token': self.token,
