@@ -51,7 +51,7 @@ def get_unique_groups(evgen_friends_list, evgen_groups_set, TOKEN):
                   friends_set = friend.get_groups()
                   evgen_groups_set -= friends_set
                   time.sleep(1)
-            except:
+            except KeyError:
                   pass
             
       return list(evgen_groups_set)
