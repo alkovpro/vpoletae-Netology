@@ -8,15 +8,15 @@ class Contact:
             self.tuple = args
             self.dict = kwargs
 
-      def show(self):
-            print('''
+      def __str__(self):
+            return ('''
 Name: {0}
 Surname: {1}
 Phone number: {2}
 Prefferable: {3}
 Additional information:'''.format(str(self.name), str(self.surname), str(self.phone), str(self.pref_contact)))
             for key, value in self.dict.items():
-                  print('\t{0} : {1}'.format(key, value))
+                  return('\t{0} : {1}'.format(key, value))
 
 
 # creating class PhoneBook
@@ -30,7 +30,7 @@ class PhoneBook:
 
       def show_contacts(self):
             for contact in self.contacts:
-                  contact.show()
+                  print(contact)
 
       def del_contact(self, phone_number):
             counter = int()
@@ -57,7 +57,7 @@ class PhoneBook:
             counter = int()
             for contact in self.contacts:
                   if name.lower() == contact.name.lower() and surname.lower() == contact.surname.lower():
-                        contact.show()
+                        print(contact)
                         counter += 1
                         break
                   else:
