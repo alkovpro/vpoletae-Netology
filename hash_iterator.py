@@ -19,10 +19,9 @@ class Hash_iterator:
             with open(self.path, 'r', encoding = 'UTF8') as infile:
                   loaded_lines = infile.readlines()
             for line in loaded_lines:
-                  hashed_lines.append(hash(line))
-            print (hashed_lines)
+                  yield hash(line)
 
-hasher = Hash_iterator(1, 10, 'C:\Vadim\Personal\PY_code\Netology\Generator. Yield\lines.txt')
+hasher = Hash_iterator(start = 1, end = 10, path = 'C:\Vadim\Personal\PY_code\Netology\Generator. Yield\lines.txt')
 
 for i in hasher:
       hasher.hash_line()
