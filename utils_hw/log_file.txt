@@ -1,0 +1,5 @@
+2019-02-02
+Sat Feb  2 21:50:51 2019
+text_updater
+[('text', <Parameter "text">), ('start', <Parameter "start=''">), ('max_line', <Parameter "max_line=0">), ('in_file', <Parameter "in_file=False">)]
+!!!hjk
