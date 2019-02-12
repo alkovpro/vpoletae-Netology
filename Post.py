@@ -8,16 +8,16 @@ DEFAULT_SMTP = "smtp.gmail.com"
 DEFAULT_IMAP = "imap.gmail.com"
 DEFAULT_SMTP_PORT = 587
 
+
 class Mailer:
       def __init__(self, sender_mail: str, password: str,
-                         smtp = GMAIL_SMTP, imap = GMAIL_IMAP,
-                         port_name = DEFAULT_SMTP_PORT):
+                   smtp: str = DEFAULT_SMTP, imap: str = DEFAULT_IMAP,
+                   smtp_port: int = DEFAULT_SMTP_PORT):
             self.smtp = smtp
             self.imap = imap
-            self.port_name = port_name
+            self.smtp_port = smtp_port
             self.sender_mail = sender_mail
             self.password = password
-            self.inbox = inbox
 
       def send_message(self, subject: str, recipients: list, body: str):
             """send message"""
@@ -27,7 +27,7 @@ class Mailer:
             message['Subject'] = subject
             message.attach(MIMEText(body))
 
-            ms = smtplib.SMTP(self.smtp, self.port_name)
+            ms = smtplib.SMTP(self.smtp, self.smtp_port)
             # identify ourselves to smtp gmail client
             ms.ehlo()
             # secure our email with tls encryption
@@ -38,12 +38,12 @@ class Mailer:
             ms.sendmail(self.sender_mail, recipients, message.as_string())
             ms.quit()
 
-      def recieve_message(self, header: str = '', inbox = 'inbox'):
-            """recieve message"""
+      def receive_message(self, header: str = '', folder: str = 'inbox'):
+            """receive message"""
             mail = imaplib.IMAP4_SSL(self.imap)
             mail.login(self.sender_mail, self.password)
             mail.list()
-            mail.select(self.inbox)
+            mail.select(folder)
 
             criterion = f'(HEADER Subject "{header or "ALL"}")'
 
@@ -57,9 +57,9 @@ class Mailer:
 
             return email_message
 
+
 if __name__ == '__main__':
       mailer = Mailer('login@gmail.com', 'qwerty')
       mailer.send_message('Subject',
                           ['vasya@email.com', 'petya@email.com'], 'Message')
-      mailer.recieve_message()
-      
+      mailer.receive_message()
