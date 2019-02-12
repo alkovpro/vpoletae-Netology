@@ -38,12 +38,12 @@ class Mailer:
             ms.sendmail(self.sender_mail, recipients, message.as_string())
             ms.quit()
 
-      def recieve_message(self, header: str = '', folder: str = 'inbox'):
+      def recieve_message(self, header: str = '', inbox: str = 'inbox'):
             """recieve message"""
             mail = imaplib.IMAP4_SSL(self.imap)
             mail.login(self.sender_mail, self.password)
             mail.list()
-            mail.select(folder)
+            mail.select(inbox)
 
             criterion = f'(HEADER Subject "{header or "ALL"}")'
 
