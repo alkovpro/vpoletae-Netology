@@ -38,8 +38,8 @@ class Mailer:
             ms.sendmail(self.sender_mail, recipients, message.as_string())
             ms.quit()
 
-      def receive_message(self, header: str = '', folder: str = 'inbox'):
-            """receive message"""
+      def recieve_message(self, header: str = '', folder: str = 'inbox'):
+            """recieve message"""
             mail = imaplib.IMAP4_SSL(self.imap)
             mail.login(self.sender_mail, self.password)
             mail.list()
@@ -62,4 +62,4 @@ if __name__ == '__main__':
       mailer = Mailer('login@gmail.com', 'qwerty')
       mailer.send_message('Subject',
                           ['vasya@email.com', 'petya@email.com'], 'Message')
-      mailer.receive_message()
+      mailer.recieve_message()
