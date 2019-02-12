@@ -4,10 +4,14 @@ import imaplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+DEFAULT_SMTP = "smtp.gmail.com"
+DEFAULT_IMAP = "imap.gmail.com"
+DEFAULT_SMTP_PORT = 587
+
 class Mailer:
       def __init__(self, sender_mail: str, password: str,
                          smtp = GMAIL_SMTP, imap = GMAIL_IMAP,
-                         port_name = '587', inbox = 'inbox'):
+                         port_name = DEFAULT_SMTP_PORT):
             self.smtp = smtp
             self.imap = imap
             self.port_name = port_name
@@ -31,12 +35,12 @@ class Mailer:
             # re-identify ourselves as an encrypted connection
             ms.ehlo()
             ms.login(self.sender_mail, self.password)
-            ms.sendmail(self.sender_mail, ms, message.as_string())
+            ms.sendmail(self.sender_mail, recipients, message.as_string())
             ms.quit()
 
-      def recieve_message(self, header: str = ''):
+      def recieve_message(self, header: str = '', inbox = 'inbox'):
             """recieve message"""
-            mail = imaplib.IMAP4_SSL(self.smtp)
+            mail = imaplib.IMAP4_SSL(self.imap)
             mail.login(self.sender_mail, self.password)
             mail.list()
             mail.select(self.inbox)
@@ -54,9 +58,8 @@ class Mailer:
             return email_message
 
 if __name__ == '__main__':
-      mailer = Mailer('login@gmail.com', 'qwerty',
-                            'smtp.gmail.com','imap.gmail.com')
+      mailer = Mailer('login@gmail.com', 'qwerty')
       mailer.send_message('Subject',
-                          ['vasya@email.com', 'petya@email.com'], 'Message', None)
+                          ['vasya@email.com', 'petya@email.com'], 'Message')
       mailer.recieve_message()
       
